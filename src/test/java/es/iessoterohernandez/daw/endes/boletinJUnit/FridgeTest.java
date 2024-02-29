@@ -24,21 +24,23 @@ class FridgeTest {
 
 	@ParameterizedTest
 	@CsvSource({"item1", "item2", "item3"})
-	void testPut(String input) {
-		
+	void testPut(String item) {
+		assertTrue(f.put(item));
 	}
 
 	@ParameterizedTest
-	@CsvSource("")
-	void testContains() {
-		fail("Not yet implemented");
+	@CsvSource({"item1", "item2", "item3"})
+	void testContains(String item) {
+		f.put(item);
+		assertTrue(f.contains(item));
 	}
 
 	@ParameterizedTest
-	@MethodSource("")
-	void testTake() {
-		fail("Not yet implemented");
-	}
+	@CsvSource({"item1", "item2", "item3"})
+	void testTakeNoSuchItemException(String item) {
+        Fridge fridge = new Fridge();
+        assertThrows(NoSuchItemException.class, () -> fridge.take(item));
+    }
 	
 	
 
